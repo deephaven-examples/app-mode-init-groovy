@@ -14,14 +14,14 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout
       - name: Build
         run: |
            docker build --tag deephaven-examples/app-mode-init-groovy .
            docker-compose -f docker-compose.yml -p test-tables up -d
-      - name: Validate tables
-        uses: deephaven/action-assert-dh-tables-present
-        with:
-          table-names: "source,result"
-          host: "envoy"
-          project-name: test-tables
+      #- name: Validate tables
+      #  uses: deephaven/action-assert-dh-tables-present
+      #  with:
+      #    table-names: "source,result"
+      #    host: "envoy"
+      #    project-name: test-tables
