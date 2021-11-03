@@ -24,4 +24,3 @@ jobs:
         with:
           table-names: "source,result"
           host: "envoy"
-          project-name: test-tables
