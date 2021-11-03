@@ -19,8 +19,8 @@ jobs:
         run: |
            docker build --tag deephaven-examples/app-mode-init-groovy .
            docker-compose -f docker-compose.yml -p test-tables up -d
-      - name: Validate tables
+      - name: Assert tables
         uses: deephaven/action-assert-dh-tables-present@fix-remote-usage
         with:
-          table-names: "source,result"
-          host: "envoy"
+          table-names: source,result
+          host: localhost
