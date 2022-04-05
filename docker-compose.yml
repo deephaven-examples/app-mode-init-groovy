@@ -2,14 +2,14 @@ version: "3.4"
 
 services:
   server:
-    image: app-mode-deephaven/server:latest
+    image: ghcr.io/deephaven/server:${VERSION:-latest}
     expose:
       - '8080'
     volumes:
       - ./data:/data
       - api-cache:/cache
     environment:
-      - JAVA_TOOL_OPTIONS=-Xmx4g -Ddeephaven.console.type=groovy -Ddeephaven.application.dir=/app.d
+      - JAVA_TOOL_OPTIONS=-Xmx4g -Ddeephaven.console.type=groovy -Ddeephaven.application.dir=/data/app.d
 
   web:
     image: ghcr.io/deephaven/web:${VERSION:-latest}
