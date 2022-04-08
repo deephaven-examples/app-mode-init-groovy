@@ -1,0 +1,26 @@
+name: Build
+
+on:
+  schedule:
+    # Every day at 9AM EST
+    - cron:  '0 13 * * *'
+  pull_request:
+    branches: [ main ]
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Build
+        run: |
+           docker-compose -f docker-compose.yml up -d
+      - name: Assert tables
+        uses: deephaven/action-assert-dh-tables-present@v1.1.0
+        with:
+          table-names: source,result
+          host: localhost
+          session-type: groovy
