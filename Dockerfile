@@ -1,2 +1,0 @@
-FROM ghcr.io/deephaven/grpc-api
-COPY app.d /app.d

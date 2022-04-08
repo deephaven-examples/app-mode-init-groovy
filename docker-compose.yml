@@ -1,15 +1,15 @@
 version: "3.4"
 
 services:
-  grpc-api:
-    image: deephaven-examples/app-mode-init-groovy:latest
+  server:
+    image: ghcr.io/deephaven/server:${VERSION:-latest}
     expose:
       - '8080'
     volumes:
       - ./data:/data
       - api-cache:/cache
     environment:
-      - JAVA_TOOL_OPTIONS=-Xmx4g -Ddeephaven.console.type=groovy -Ddeephaven.application.dir=/app.d
+      - JAVA_TOOL_OPTIONS=-Xmx4g -Ddeephaven.console.type=groovy -Ddeephaven.application.dir=/data/app.d
 
   web:
     image: ghcr.io/deephaven/web:${VERSION:-latest}
@@ -22,9 +22,9 @@ services:
   grpc-proxy:
     image: ghcr.io/deephaven/grpc-proxy:${VERSION:-latest}
     environment:
-      - BACKEND_ADDR=grpc-api:8080
+      - BACKEND_ADDR=server:8080
     depends_on:
-      - grpc-api
+      - server
     expose:
       - '8080'
 
@@ -33,7 +33,7 @@ services:
     depends_on:
       - web
       - grpc-proxy
-      - grpc-api
+      - server
     ports:
       - "${PORT:-10000}:10000"
 
