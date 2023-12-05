@@ -28,3 +28,7 @@ docker-compose up
 ```
 
 Go to [http://localhost:10000/ide](http://localhost:10000/ide) to view the table in the top right **Panels** tab!
+
+## Note
+
+The code in this repository is built for Deephaven Community Core v0.11.0. No guarantee of forward or backward compatibility is given.
